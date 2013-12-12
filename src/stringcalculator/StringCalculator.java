@@ -102,7 +102,7 @@ public class StringCalculator {
 			return "%";
 		}
 	}
-	
+
 	protected class OperatorPow extends Operator {
 		protected OperatorPow() {
 			super(3);
@@ -148,70 +148,17 @@ public class StringCalculator {
 		int start = 0;
 		for (int i = 0; i < expreString.length(); i++) {
 			char c = expreString.charAt(i);
-			switch (c) {
-			case '+':
+
+			if(c == '+' 
+					|| c == '-' || c == '*' || c == '/' 
+					|| c == '(' || c == ')' || c == 'E' 
+					|| c == '%' || c == '=') {
 				if (start != i)
 					tokenized.offer(expreString.substring(start, i));
-				tokenized.offer("+");
+				tokenized.add(String.valueOf(c));
 				start = i + 1;
-				break;
-			case '-':
-				if (start != i)
-					tokenized.offer(expreString.substring(start, i));
-				tokenized.offer("-");
-				start = i + 1;
-				break;
-			case '*':
-				if (start != i)
-					tokenized.offer(expreString.substring(start, i));
-				tokenized.offer("*");
-				start = i + 1;
-				break;
-			case '/':
-				if (start != i)
-					tokenized.offer(expreString.substring(start, i));
-				tokenized.offer("/");
-				start = i + 1;
-				break;
-			case '%':
-				if (start != i)
-					tokenized.offer(expreString.substring(start, i));
-				tokenized.offer("%");
-				start = i + 1;
-				break;
-			case '(':
-				if (start != i)
-					tokenized.offer(expreString.substring(start, i));
-				tokenized.offer("(");
-				start = i + 1;
-				break;
-			case ')':
-				if (start != i)
-					tokenized.add(expreString.substring(start, i));
-				tokenized.add(")");
-				start = i + 1;
-				break;
-			case '^':
-				if (start != i)
-					tokenized.add(expreString.substring(start, i));
-				tokenized.add("^");
-				start = i + 1;
-				break;
-			case 'E':
-				if (start != i)
-					tokenized.add(expreString.substring(start, i));
-				tokenized.add("E");
-				start = i + 1;
-				break;
-			case '=':
-				if (start != i)
-					tokenized.add(expreString.substring(start, i));
-				tokenized.add("=");
-				start = i + 1;
-				break;
-			default:
-				break;
 			}
+
 			if (i == expreString.length() - 1) {
 				tokenized.add(expreString.substring(start));
 				continue;

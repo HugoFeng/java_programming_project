@@ -146,12 +146,9 @@ public class StringCalculator {
 	protected static LinkedList<String> Tokenize(String expreString) {
 		Queue<String>tokenized = new LinkedList<String>();
 		int start = 0;
-		int a = 0;
-		// this is a comment
 		for (int i = 0; i < expreString.length(); i++) {
 			char c = expreString.charAt(i);
-
-			if(c == '+' 
+			if(c == '+'
 					|| c == '-' || c == '*' || c == '/' 
 					|| c == '(' || c == ')' || c == 'E' 
 					|| c == '%' || c == '=') {

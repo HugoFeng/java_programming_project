@@ -12,7 +12,7 @@ public class StringCalculator {
 		protected Operator(int l) {
 			level = l;
 		}
-		public abstract Double run(Double val1, Double val2);
+		public abstract Double run(Double val1, Double val2) ;
 		public abstract String toString();
 	}
 	
@@ -23,7 +23,6 @@ public class StringCalculator {
 
 		@Override
 		public Double run(Double val1, Double val2) {
-			// TODO Auto-generated method stub
 			return val1 + val2;
 		}
 		
@@ -39,7 +38,6 @@ public class StringCalculator {
 
 		@Override
 		public Double run(Double val1, Double val2) {
-			// TODO Auto-generated method stub
 			return val1 - val2;
 		}
 
@@ -54,7 +52,6 @@ public class StringCalculator {
 
 		@Override
 		public Double run(Double val1, Double val2) {
-			// TODO Auto-generated method stub
 			return val1 * val2;
 		}
 
@@ -69,16 +66,6 @@ public class StringCalculator {
 
 		@Override
 		public Double run(Double val1, Double val2) {
-			// TODO Auto-generated method stub
-			if (val2==0) {
-				if (val1>0) {
-					return Double.POSITIVE_INFINITY;
-				}else if (val1<0) {
-					return Double.NEGATIVE_INFINITY;
-				}else {
-					return Double.NaN;
-				}
-			}
 			return val1 / val2;
 		}
 
@@ -94,7 +81,6 @@ public class StringCalculator {
 
 		@Override
 		public Double run(Double val1, Double val2) {
-			// TODO Auto-generated method stub
 			return val1 % val2;
 		}
 
@@ -110,7 +96,6 @@ public class StringCalculator {
 
 		@Override
 		public Double run(Double val1, Double val2) {
-			// TODO Auto-generated method stub
 			return Math.pow(val1, val2);
 		}
 
@@ -125,7 +110,6 @@ public class StringCalculator {
 
 		@Override
 		public Double run(Double val1, Double val2) {
-			// TODO Auto-generated method stub
 			return val1 *  Math.pow(10, val2);
 		}
 
@@ -138,7 +122,6 @@ public class StringCalculator {
 	Stack<String> opStrStack;
 	
 	public StringCalculator() {
-		// TODO Auto-generated constructor stub
 		valueStack = new Stack<Double>();
 		opStrStack = new Stack<String>();
 	}
@@ -173,7 +156,8 @@ public class StringCalculator {
 		else if (s.equals("/")) return new OperatorDevide();
 		else if (s.equals("%")) return new OperatorRemain();
 		else if (s.equals("E")) return new OperatorSci();
-		else return new OperatorPow();
+		else if (s.equals("^")) return new OperatorPow();
+		else return null;
 	}
 	
 	public String input(String s) {
@@ -188,7 +172,7 @@ public class StringCalculator {
 				valueDouble = operator.run(val1, val2);
 				valueStack.push(valueDouble);
 			}
-			if (opStrStack.peek().equals("(")) opStrStack.pop(); //  dirty code
+			opStrStack.pop(); //  Pop out "("
 		}
 		else if (s.equals("=")){
 			while (!opStrStack.empty()) {
@@ -219,6 +203,16 @@ public class StringCalculator {
 			return String.valueOf(valueDouble);
 		}
 		
+	}
+	
+	public static String getResultFromExpression(String expression) {
+		StringCalculator expreessionCalculator = new StringCalculator();
+		Queue<String> expressionQueue = Tokenize(expression);
+		String output = null;
+		while (!expressionQueue.isEmpty()) {
+			output = expreessionCalculator.input(expressionQueue.poll());
+		}
+		return output;
 	}
 	
 	private static final boolean isNumeric(final String s) {

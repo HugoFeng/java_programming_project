@@ -4,23 +4,32 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+/**
+ * @author Xuyang Feng
+ * @version 1.0
+ * StringCalculator is a class offers expression tokenization and calculation. 
+ * The following operators are supported:
+ * 		Basic: +, -, *, /, (, )
+ * 		Scientific: ^, E
+ *
+ */
 public class StringCalculator {
 
+	// This is a self-defined exception used when an expression syntax error is detected.
+	@SuppressWarnings("serial")
 	public class ExpressionSyntaxError extends Exception {
 
 		public ExpressionSyntaxError() {
 			super("Expression Syntax Error!");
-			// TODO Auto-generated constructor stub
-
 		}
 
 		public ExpressionSyntaxError(String message) {
 			super(message);
-			// TODO Auto-generated constructor stub
 		}
 
 	}
 
+	// The super class of 
 	protected abstract class Operator {
 		public final int level;
 
@@ -201,6 +210,7 @@ public class StringCalculator {
 			}
 		} else {
 			Operator thisOperator = operatorFactory(s);
+			if(thisOperator == null) throw new ExpressionSyntaxError();
 			while (!opStrStack.empty()
 					&& !opStrStack.peek().equals("(")
 					&& operatorFactory(opStrStack.peek()).level >= thisOperator.level) {

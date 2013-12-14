@@ -287,15 +287,12 @@ public class Calculator extends JFrame {
 
 class OperationKey {
 	
-	public String exec(StringCalculator cal, String oldString, String newString){
-		try {
-			if (!oldString.equals("")) {
-				cal.input(oldString);
-			}
-			return cal.input(newString);
-		} catch (Exception e) {
-			return e.getMessage();
+	public String exec(StringCalculator cal, String oldString, String newString)
+			throws ArithmeticException, ExpressionSyntaxError{
+		if (!oldString.equals("")) {
+			cal.input(oldString);
 		}
+		return cal.input(newString);
 	}
 }
 	

@@ -279,7 +279,6 @@ public class Calculator extends JFrame {
 			}
 		});
 		group.add(rpnRadioButton);
-	
 	}
 	
 

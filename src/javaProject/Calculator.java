@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,6 +29,9 @@ public class Calculator extends JFrame {
 	private LinkedList<JButton> numberButtonList;
 	private LinkedList<JButton> operatorButtonList;
 	
+	private AddtextListenerClass addTextListner;
+	private ClassicOpButtonListenerClass opButtonListner;
+	
 	public Calculator() {
 		
 		/*addWindowListener(new WindowAdapter() {
@@ -41,6 +43,8 @@ public class Calculator extends JFrame {
 		
 		numberButtonList = new LinkedList<JButton>();
 		operatorButtonList = new LinkedList<JButton>();
+		
+		
 		//set frame
 		setTitle("calculator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,14 +61,14 @@ public class Calculator extends JFrame {
 		
 		//add a display panel to the content panel
 		JPanel displayPanel = new JPanel();
-		displayPanel.setBounds(10, 10, 344, 62);
+		displayPanel.setBounds(10, 10, 344, 73);
 		contentPanel.add(displayPanel);
 		displayPanel.setLayout(null);
 		
 		//add text field to the display panel
 		textField = new JTextField();
 		textField.setText("0");
-		textField.setBounds(10, 6, 243, 50);
+		textField.setBounds(10, 6, 243, 57);
 		displayPanel.add(textField);
 		textField.setColumns(10);
 		textField.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -82,8 +86,9 @@ public class Calculator extends JFrame {
 		
 		
 		//new button listener
-		NumButtonListenerClass numButtonListner = new NumButtonListenerClass();
-		OpButtonListenerClass opButtonListner = new OpButtonListenerClass(strCal);
+		addTextListner = new AddtextListenerClass();
+		opButtonListner = new ClassicOpButtonListenerClass(strCal);
+		
 		
 		
 		//add num1
@@ -155,9 +160,7 @@ public class Calculator extends JFrame {
 		buttonDecimal.setBounds(141, 137, 48, 23);
 		commonButton.add(buttonDecimal);
 
-		for (JButton button : numberButtonList) {
-			button.addActionListener(numButtonListner);
-		}
+		
 
 		//add plus
 		JButton buttonPlus = new JButton("+");
@@ -189,9 +192,7 @@ public class Calculator extends JFrame {
 		commonButton.add(buttonPower);
 		operatorButtonList.add(buttonPower);
 		
-		for (JButton button : operatorButtonList) {
-			button.addActionListener(opButtonListner);
-		}
+		
 		
 		//add sign toggle
 		JButton buttonSignToggle = new JButton("±");
@@ -231,27 +232,27 @@ public class Calculator extends JFrame {
 		
 		//add E
 		JButton buttonSci = new JButton("E");
-		buttonSci.addActionListener(opButtonListner);
 		buttonSci.setBounds(10, 72, 48, 23);
 		classic.add(buttonSci);
+		operatorButtonList.add(buttonSci);
 		
 		//add left bracket
 		JButton buttonLeftBracket = new JButton("(");
-		buttonLeftBracket.addActionListener(opButtonListner);
 		buttonLeftBracket.setBounds(10, 134, 48, 23);
 		classic.add(buttonLeftBracket);
+		operatorButtonList.add(buttonLeftBracket);
 		
 		//add right bracket
 		JButton buttonRightBracket = new JButton(")");
-		buttonRightBracket.addActionListener(opButtonListner);
 		buttonRightBracket.setBounds(10, 103, 48, 23);
 		classic.add(buttonRightBracket);
+		operatorButtonList.add(buttonRightBracket);
 		
 		//add equal
 		JButton buttonEqual = new JButton("=");
-		buttonEqual.addActionListener(opButtonListner);
 		buttonEqual.setBounds(10, 10, 48, 56);
 		classic.add(buttonEqual);
+		operatorButtonList.add(buttonEqual);
 		
 		//add panel of RPN
 		rpn = new JPanel();
@@ -271,22 +272,27 @@ public class Calculator extends JFrame {
 		rpn.add(btnSwap);
 		
 		
+		
+		
+		
 		ButtonGroup group = new ButtonGroup();
+		
 		//add radio button classic to the display panel
 		JRadioButton classicRadioButton = new JRadioButton("Classic");
-		classicRadioButton.setBounds(259, 5, 67, 23);
+		classicRadioButton.setBounds(259, 3, 79, 20);
 		displayPanel.add(classicRadioButton);
 		classicRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rpn.setVisible(false);
 				classic.setVisible(true);
+				setClassicAlgoEnvironment();
 			}
 		});
 		group.add(classicRadioButton);
 		
-		//add radio button swap to the display panel
+		//add radio button RPN to the display panel
 		JRadioButton rpnRadioButton = new JRadioButton("RPN");
-		rpnRadioButton.setBounds(259, 33, 67, 23);
+		rpnRadioButton.setBounds(259, 49, 79, 20);
 		displayPanel.add(rpnRadioButton);
 		rpnRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -296,9 +302,63 @@ public class Calculator extends JFrame {
 			}
 		});
 		group.add(rpnRadioButton);
+		
+		
+		JRadioButton advancedRadioButton = new JRadioButton("Advanced");
+		advancedRadioButton.setBounds(259, 26, 83, 20);
+		displayPanel.add(advancedRadioButton);
+		advancedRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setAdvancedAlgoEnvironment();
+			}
+		});
+		group.add(advancedRadioButton);
 	}
 	
-
+	private void clearListeners(JButton button) {
+		for(ActionListener al:button.getActionListeners())
+				button.removeActionListener(al);
+	}
+	
+	private void setClassicAlgoEnvironment(){
+		for (JButton button : operatorButtonList) {
+			clearListeners(button);
+			button.addActionListener(opButtonListner);
+		}
+		for (JButton button : numberButtonList) {
+			clearListeners(button);
+			button.addActionListener(addTextListner);
+		}
+	}
+	
+	private void setAdvancedAlgoEnvironment(){
+		for (JButton button : operatorButtonList) {
+			clearListeners(button);
+			if(!button.getText().equals("="))
+				
+				button.addActionListener(addTextListner);
+			else
+				button.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent event) {
+						String expression = textField.getText()+"=";
+						try {
+							String result = StringCalculator.getResultFromExpression(expression);
+							textField.setText(result);
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null, e.getMessage());
+							textField.setText("0");
+							
+						}
+					}
+				});
+		}
+		
+		for (JButton button : numberButtonList) {
+			clearListeners(button);
+			button.addActionListener(addTextListner);
+		}
+	}
 
 class OperationKey {
 	
@@ -310,11 +370,9 @@ class OperationKey {
 		return cal.input(newString);
 	}
 }
-	
 
 private boolean isOpKeyPushed;
-
-class NumButtonListenerClass implements ActionListener{
+class AddtextListenerClass implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if(isOpKeyPushed){
@@ -322,20 +380,18 @@ class NumButtonListenerClass implements ActionListener{
 			isOpKeyPushed = false;
 		}
 		
-		
 		if(textField.getText().equals("0") && !e.getActionCommand().equals("."))
 			textField.setText(e.getActionCommand());
 		else
 			textField.setText(textField.getText()+e.getActionCommand());
 		
-		
 	}
 }
 
-class OpButtonListenerClass implements ActionListener{
+class ClassicOpButtonListenerClass implements ActionListener{
 	private StringCalculator strCal;
 	
-	public OpButtonListenerClass(StringCalculator strCal) {
+	public ClassicOpButtonListenerClass(StringCalculator strCal) {
 		super();
 		this.strCal = strCal;
 	}
@@ -379,6 +435,9 @@ class SignToggleListener implements ActionListener{
 		textField.setText(oldStr);
 	}
 }
+
+	
+
 
 }
 

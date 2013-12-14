@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+import javax.swing.JOptionPane;
 
 public class Calculator extends JFrame {
 
@@ -324,11 +324,18 @@ class OpButtonListenerClass implements ActionListener{
 		String oldStr = textField.getText();
 		JButton btn = (JButton) e.getSource();
 		OperationKey opKey = new OperationKey();
-		String newStr = opKey.exec(strCal, oldStr, btn.getText());
-		if (!newStr.equals("")) {
-			textField.setText(newStr);
+		
+		try{
+			String newStr = opKey.exec(strCal, oldStr, btn.getText());
+			if (!newStr.equals("")) {
+				textField.setText(newStr);
+			}
 		}
 		
+		catch(Exception ex){
+			JOptionPane.showMessageDialog(null, ex.getMessage());
+			textField.setText("");
+		}
 	}
 	
 }

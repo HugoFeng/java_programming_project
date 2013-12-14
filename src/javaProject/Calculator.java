@@ -228,6 +228,7 @@ public class Calculator extends JFrame {
 		contentPanel.add(classic);
 		classic.setLayout(null);
 		classic.setVisible(true);
+		//this is a comment
 		
 		//add E
 		JButton buttonSci = new JButton("E");

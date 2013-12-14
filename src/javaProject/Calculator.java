@@ -1,6 +1,7 @@
 package javaProject;
 
 import stringcalculator.StringCalculator;
+import stringcalculator.StringCalculator.ExpressionSyntaxError;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -289,22 +290,20 @@ public class Calculator extends JFrame {
 	}
 	
 
-interface OperationKeyInterface{
-	public String exec(StringCalculator cal, String s);
-}
 
 class OperationKey {
-	public String exec(StringCalculator cal, String s){
-		return cal.input(s);
-	}
 	
 	public String exec(StringCalculator cal, String oldString, String newString){
-		if (!oldString.equals("")) {
-			exec(cal, oldString);
+		try {
+			if (!oldString.equals("")) {
+				cal.input(oldString);
+			}
+			return cal.input(newString);
+		} catch (Exception e) {
+			return e.getMessage();
 		}
-		return cal.input(newString);
 	}
-} 
+}
 	
 
 private boolean isOpKeyPushed;

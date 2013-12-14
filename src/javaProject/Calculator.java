@@ -204,7 +204,6 @@ public class Calculator extends JFrame {
 		commonButton.add(btnCe);
 		
 		
-		
 		//add panel of classic
 		classic = new JPanel();
 		classic.setBounds(270, 82, 72, 169);
@@ -236,7 +235,6 @@ public class Calculator extends JFrame {
 		buttonEqual.setBounds(10, 10, 48, 56);
 		classic.add(buttonEqual);
 		
-		
 		//add panel of RPN
 		rpn = new JPanel();
 		rpn.setBounds(270, 82, 84, 169);
@@ -253,7 +251,6 @@ public class Calculator extends JFrame {
 		btnSwap.setBounds(7, 10, 73, 66);
 		rpn.setLayout(null);
 		rpn.add(btnSwap);
-		
 		
 		
 		ButtonGroup group = new ButtonGroup();
@@ -282,9 +279,6 @@ public class Calculator extends JFrame {
 		});
 		group.add(rpnRadioButton);
 	
-		
-		
-		
 	}
 	
 
@@ -342,7 +336,6 @@ class OpButtonListenerClass implements ActionListener{
 	
 	
 }
-
 
 }
 

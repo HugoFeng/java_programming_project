@@ -177,11 +177,11 @@ public class Calculator extends JFrame {
 		buttonPower.setBounds(141, 5, 48, 23);
 		commonButton.add(buttonPower);
 		
-		//add %
-		JButton buttonPercentage = new JButton("%");
-		buttonPercentage.addActionListener(opButtonListner);
-		buttonPercentage.setBounds(204, 5, 48, 23);
-		commonButton.add(buttonPercentage);
+		//add sign toggle
+		JButton buttonSignToggle = new JButton("±");
+		buttonSignToggle.addActionListener(new SignToggleListener());
+		buttonSignToggle.setBounds(204, 5, 48, 23);
+		commonButton.add(buttonSignToggle);
 		
 		//add delete
 		JButton btnDel = new JButton("<-");
@@ -204,7 +204,6 @@ public class Calculator extends JFrame {
 		});
 		btnCe.setBounds(15, 5, 48, 23);
 		commonButton.add(btnCe);
-		
 		
 		
 		//add panel of classic
@@ -238,7 +237,6 @@ public class Calculator extends JFrame {
 		buttonEqual.setBounds(10, 10, 48, 56);
 		classic.add(buttonEqual);
 		
-		
 		//add panel of RPN
 		rpn = new JPanel();
 		rpn.setBounds(270, 82, 84, 169);
@@ -255,7 +253,6 @@ public class Calculator extends JFrame {
 		btnSwap.setBounds(7, 10, 73, 66);
 		rpn.setLayout(null);
 		rpn.add(btnSwap);
-		
 		
 		
 		ButtonGroup group = new ButtonGroup();
@@ -284,9 +281,6 @@ public class Calculator extends JFrame {
 		});
 		group.add(rpnRadioButton);
 	
-		
-		
-		
 	}
 	
 
@@ -315,6 +309,8 @@ class NumButtonListenerClass implements ActionListener{
 			textField.setText("");	
 			isOpKeyPushed = false;
 		}
+		
+		
 		textField.setText(textField.getText()+e.getActionCommand());
 	}
 }
@@ -328,7 +324,6 @@ class OpButtonListenerClass implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e){
-//		textField.setText(textField.getText()+e.getActionCommand());
 		isOpKeyPushed = true;
 		String oldStr = textField.getText();
 		JButton btn = (JButton) e.getSource();
@@ -340,9 +335,22 @@ class OpButtonListenerClass implements ActionListener{
 		
 	}
 	
-	
 }
 
+class SignToggleListener implements ActionListener{
+	
+	public void actionPerformed(ActionEvent e){
+		
+		String oldStr = textField.getText();
+		if(oldStr.charAt(0)=='-'){
+			oldStr = oldStr.substring(1);
+		}
+		else{
+			oldStr = "-"+oldStr;
+		}
+		textField.setText(oldStr);
+	}
+}
 
 }
 

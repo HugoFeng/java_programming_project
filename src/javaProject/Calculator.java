@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -25,6 +27,8 @@ public class Calculator extends JFrame {
 	private JTextField textField;
 	private StringCalculator strCal;
 	
+	private LinkedList<JButton> numberButtonList;
+	private LinkedList<JButton> operatorButtonList;
 	
 	public Calculator() {
 		
@@ -35,6 +39,8 @@ public class Calculator extends JFrame {
 			}
 		});*/
 		
+		numberButtonList = new LinkedList<JButton>();
+		operatorButtonList = new LinkedList<JButton>();
 		//set frame
 		setTitle("calculator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,98 +90,108 @@ public class Calculator extends JFrame {
 		JButton button1 = new JButton("1");
 		button1.setBounds(15, 38, 48, 23);
 		commonButton.add(button1);
-		button1.addActionListener(numButtonListner);
+		this.numberButtonList.add(button1);
 		
 		//add num2
 		JButton button2 = new JButton("2");
-		button2.addActionListener(numButtonListner);
+		this.numberButtonList.add(button2);
 		button2.setBounds(78, 38, 48, 23);
 		commonButton.add(button2);
 		
 		//add num3
 		JButton button3 = new JButton("3");
-		button3.addActionListener(numButtonListner);
+		this.numberButtonList.add(button3);
 		button3.setBounds(141, 38, 48, 23);
 		commonButton.add(button3);
 		
 		//add num4
 		JButton button4 = new JButton("4");
-		button4.addActionListener(numButtonListner);
+		this.numberButtonList.add(button4);
 		button4.setBounds(15, 71, 48, 23);
 		commonButton.add(button4);
 		
 		//add num5
 		JButton button5 = new JButton("5");
-		button5.addActionListener(numButtonListner);
+		this.numberButtonList.add(button5);
 		button5.setBounds(78, 71, 48, 23);
 		commonButton.add(button5);
 		
 		//add num6
 		JButton button6 = new JButton("6");
-		button6.addActionListener(numButtonListner);
+		this.numberButtonList.add(button6);
 		button6.setBounds(141, 71, 48, 23);
 		commonButton.add(button6);
 		
 		//add num7
 		JButton button7 = new JButton("7");
-		button7.addActionListener(numButtonListner);
+		this.numberButtonList.add(button7);
 		button7.setBounds(15, 104, 48, 23);
 		commonButton.add(button7);
 		
 		//add num8
 		JButton button8 = new JButton("8");
-		button8.addActionListener(numButtonListner);
+		this.numberButtonList.add(button8);
 		button8.setBounds(78, 104, 48, 23);
 		commonButton.add(button8);
 		
 		//add num9
 		JButton button9 = new JButton("9");
-		button9.addActionListener(numButtonListner);
+		this.numberButtonList.add(button9);
 		button9.setBounds(141, 104, 48, 23);
 		commonButton.add(button9);
 		
 		
 		//add num0
 		JButton button0 = new JButton("0");
-		button0.addActionListener(numButtonListner);
+		this.numberButtonList.add(button0);
 		button0.setBounds(15, 137, 111, 23);
 		commonButton.add(button0);
 		
+		
+		
 		//add decimal
 		JButton buttonDecimal = new JButton(".");
-		buttonDecimal.addActionListener(numButtonListner);
+		this.numberButtonList.add(buttonDecimal);
 		buttonDecimal.setBounds(141, 137, 48, 23);
 		commonButton.add(buttonDecimal);
-		
+
+		for (JButton button : numberButtonList) {
+			button.addActionListener(numButtonListner);
+		}
+
 		//add plus
 		JButton buttonPlus = new JButton("+");
-		buttonPlus.addActionListener(opButtonListner);
 		buttonPlus.setBounds(204, 38, 48, 23);
 		commonButton.add(buttonPlus);
+		operatorButtonList.add(buttonPlus);
 		
 		//add minus
 		JButton buttonMinus = new JButton("-");
-		buttonMinus.addActionListener(opButtonListner);
 		buttonMinus.setBounds(204, 71, 48, 23);
 		commonButton.add(buttonMinus);
+		operatorButtonList.add(buttonMinus);
 		
 		//add multiply
 		JButton buttonMultiply = new JButton("*");
-		buttonMultiply.addActionListener(opButtonListner);
 		buttonMultiply.setBounds(204, 104, 48, 23);
 		commonButton.add(buttonMultiply);
+		operatorButtonList.add(buttonMultiply);
 		
 		//add divide
 		JButton buttonDivide = new JButton("/");
-		buttonDivide.addActionListener(opButtonListner);
 		buttonDivide.setBounds(204, 137, 48, 23);
 		commonButton.add(buttonDivide);
+		operatorButtonList.add(buttonDivide);
 		
 		//add power
 		JButton buttonPower = new JButton("^");
-		buttonPower.addActionListener(opButtonListner);
 		buttonPower.setBounds(141, 5, 48, 23);
 		commonButton.add(buttonPower);
+		operatorButtonList.add(buttonPower);
+		
+		for (JButton button : operatorButtonList) {
+			button.addActionListener(opButtonListner);
+		}
 		
 		//add sign toggle
 		JButton buttonSignToggle = new JButton("±");

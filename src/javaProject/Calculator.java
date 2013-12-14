@@ -56,6 +56,7 @@ public class Calculator extends JFrame {
 		
 		//add text field to the display panel
 		textField = new JTextField();
+		textField.setText("0");
 		textField.setBounds(10, 6, 243, 50);
 		displayPanel.add(textField);
 		textField.setColumns(10);

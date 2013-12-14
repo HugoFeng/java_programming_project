@@ -7,6 +7,15 @@ import java.util.Stack;
 
 public class StringCalculator {
 	
+	public class ExpressionSyntaxError extends Exception {
+
+		public ExpressionSyntaxError(String message) {
+			super(message);
+			// TODO Auto-generated constructor stub
+		}
+		
+	}
+	
 	protected abstract class Operator {
 		public final int level;
 		protected Operator(int l) {
@@ -126,28 +135,6 @@ public class StringCalculator {
 		opStrStack = new Stack<String>();
 	}
 	
-	protected static LinkedList<String> Tokenize(String expreString) {
-		Queue<String>tokenized = new LinkedList<String>();
-		int start = 0;
-		for (int i = 0; i < expreString.length(); i++) {
-			char c = expreString.charAt(i);
-			if(c == '+'
-					|| c == '-' || c == '*' || c == '/' 
-					|| c == '(' || c == ')' || c == 'E' 
-					|| c == '%' || c == '=') {
-				if (start != i)
-					tokenized.offer(expreString.substring(start, i));
-				tokenized.add(String.valueOf(c));
-				start = i + 1;
-			}
-
-			if (i == expreString.length() - 1) {
-				tokenized.add(expreString.substring(start));
-				continue;
-			}
-		}
-		return (LinkedList<String>) tokenized;
-	}
 
 	protected Operator operatorFactory(String s) {
 		if (s.equals("+")) return new OperatorAdd();
@@ -172,7 +159,7 @@ public class StringCalculator {
 				valueDouble = operator.run(val1, val2);
 				valueStack.push(valueDouble);
 			}
-			opStrStack.pop(); //  Pop out "("
+			opStrStack.pop(); //  Pop out "(" in opStrStack
 		}
 		else if (s.equals("=")){
 			while (!opStrStack.empty()) {
@@ -210,10 +197,38 @@ public class StringCalculator {
 		Queue<String> expressionQueue = Tokenize(expression);
 		String output = null;
 		while (!expressionQueue.isEmpty()) {
+//			System.out.println("Token: " + expressionQueue.peek());
 			output = expreessionCalculator.input(expressionQueue.poll());
 		}
 		return output;
 	}
+
+	protected static LinkedList<String> Tokenize(String expreString) {
+		Queue<String>tokenized = new LinkedList<String>();
+		int start = 0;
+		boolean previousArgumentIsNullOrLeftBracket = true;
+		for (int i = 0; i < expreString.length(); i++) {
+			char c = expreString.charAt(i);
+			if(c == '+' || (!previousArgumentIsNullOrLeftBracket && c == '-')
+					|| c == '*' || c == '/' || c == '(' 
+					|| c == ')' || c == 'E' 
+					|| c == '%' || c == '=' ) {
+				if (start != i) {
+					tokenized.offer(expreString.substring(start, i));
+					previousArgumentIsNullOrLeftBracket = false;
+				}
+				tokenized.offer(String.valueOf(c));
+				if(c == '(') previousArgumentIsNullOrLeftBracket = true;
+				start = i + 1;
+			} 
+
+			if ((i == expreString.length() - 1) && start <= i) {
+				tokenized.offer(expreString.substring(start));
+			}
+		}
+		return (LinkedList<String>) tokenized;
+	}
+
 	
 	private static final boolean isNumeric(final String s) {
 		  if (s == null || s.isEmpty()) return false;

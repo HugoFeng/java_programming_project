@@ -250,7 +250,7 @@ public class StringCalculator {
 		Queue<String> expressionQueue = Tokenize(expression);
 		String output = null;
 		while (!expressionQueue.isEmpty()) {
-			// System.out.println("Token: " + expressionQueue.peek());
+//			 System.out.println("Token: " + expressionQueue.peek());	// For debug usage
 			output = expreessionCalculator.input(expressionQueue.poll());
 		}
 		return output;
@@ -266,7 +266,7 @@ public class StringCalculator {
 			char c = expreString.charAt(i);
 			if (c == '+' || (!previousArgumentIsNullOrLeftBracket && c == '-')
 					|| c == '*' || c == '/' || c == '(' || c == ')' || c == 'E'
-					|| c == '%' || c == '=') {
+					|| c == '%' || c == '=' || c == '^') {
 				if (start != i) {
 					tokenized.offer(expreString.substring(start, i));
 					previousArgumentIsNullOrLeftBracket = false;

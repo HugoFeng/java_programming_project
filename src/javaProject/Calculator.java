@@ -198,7 +198,7 @@ public class Calculator extends JFrame {
 		JButton btnCe = new JButton("C");
 		btnCe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField.setText("");
+				textField.setText("0");
 				strCal = new StringCalculator();
 			}
 		});
@@ -307,7 +307,12 @@ class NumButtonListenerClass implements ActionListener{
 		}
 		
 		
-		textField.setText(textField.getText()+e.getActionCommand());
+		if(textField.getText().equals("0") && !e.getActionCommand().equals("."))
+			textField.setText(e.getActionCommand());
+		else
+			textField.setText(textField.getText()+e.getActionCommand());
+		
+		
 	}
 }
 
@@ -334,7 +339,8 @@ class OpButtonListenerClass implements ActionListener{
 		
 		catch(Exception ex){
 			JOptionPane.showMessageDialog(null, ex.getMessage());
-			textField.setText("");
+			textField.setText("0");
+			strCal = new StringCalculator();
 		}
 	}
 	
@@ -345,11 +351,14 @@ class SignToggleListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		
 		String oldStr = textField.getText();
-		if(oldStr.charAt(0)=='-'){
-			oldStr = oldStr.substring(1);
-		}
-		else{
-			oldStr = "-"+oldStr;
+		
+		if(!oldStr.equals("0")){
+			if(oldStr.charAt(0)=='-'){
+				oldStr = oldStr.substring(1);
+			}
+			else{
+				oldStr = "-"+oldStr;
+			}
 		}
 		textField.setText(oldStr);
 	}

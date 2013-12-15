@@ -42,8 +42,6 @@ public class RPNCalculator {
 						stack1.push(n2 / n1);
 					}
 					break;
-				case '%':
-					stack1.push(n2 % n1);
 				case '^':
 					stack1.push(Math.pow(n2, n1));
 					
@@ -75,7 +73,7 @@ public class RPNCalculator {
 	}
 
 	public static boolean isOperator(String rpn) {
-		if (rpn == "+" || rpn == "-" || rpn == "*" || rpn == "/"||rpn == "%" || rpn=="^")
+		if (rpn == "+" || rpn == "-" || rpn == "*" || rpn == "/"|| rpn=="^")
 			return true;
 		return false;
 	}

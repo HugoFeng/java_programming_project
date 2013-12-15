@@ -1,5 +1,6 @@
 package javaProject;
 
+import rpnCalculator.RPNCalculator;
 import stringcalculator.StringCalculator;
 import stringcalculator.StringCalculator.ExpressionSyntaxError;
 
@@ -25,17 +26,21 @@ public class Calculator extends JFrame {
 	private JPanel classic;
 	private JTextField textField;
 	private StringCalculator strCal;
+	private RPNCalculator rpnCal;
 	
 	private LinkedList<JButton> numberButtonList;
 	private LinkedList<JButton> operatorButtonList;
+	private LinkedList<JButton> rpnButtonList;
 	
 	private AddtextListenerClass addTextListner;
 	private ClassicOpButtonListenerClass opButtonListner;
+	private RpnListenerClass rpnButtonListner;
 	
 	public Calculator() {
 		
 		numberButtonList = new LinkedList<JButton>();
 		operatorButtonList = new LinkedList<JButton>();
+		rpnButtonList = new LinkedList<JButton>();
 		
 		
 		//set frame
@@ -65,10 +70,12 @@ public class Calculator extends JFrame {
 		displayPanel.add(textField);
 		textField.setColumns(10);
 		textField.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		
 		this.strCal = new StringCalculator();
 		this.isOpKeyPushed = false;
 			
-			
+		this.rpnCal = new RPNCalculator();	
 		
 			
 		//add common panel to the content panel	
@@ -81,6 +88,7 @@ public class Calculator extends JFrame {
 		//new button listener
 		addTextListner = new AddtextListenerClass();
 		opButtonListner = new ClassicOpButtonListenerClass(strCal);
+		rpnButtonListner = new RpnListenerClass();
 		
 		
 		
@@ -160,32 +168,35 @@ public class Calculator extends JFrame {
 		buttonPlus.setBounds(204, 38, 48, 23);
 		commonButton.add(buttonPlus);
 		operatorButtonList.add(buttonPlus);
+		rpnButtonList.add(buttonPlus);
 		
 		//add minus
 		JButton buttonMinus = new JButton("-");
 		buttonMinus.setBounds(204, 71, 48, 23);
 		commonButton.add(buttonMinus);
 		operatorButtonList.add(buttonMinus);
+		rpnButtonList.add(buttonMinus);
 		
 		//add multiply
 		JButton buttonMultiply = new JButton("*");
 		buttonMultiply.setBounds(204, 104, 48, 23);
 		commonButton.add(buttonMultiply);
 		operatorButtonList.add(buttonMultiply);
+		rpnButtonList.add(buttonMultiply);
 		
 		//add divide
 		JButton buttonDivide = new JButton("/");
 		buttonDivide.setBounds(204, 137, 48, 23);
 		commonButton.add(buttonDivide);
 		operatorButtonList.add(buttonDivide);
+		rpnButtonList.add(buttonDivide);
 		
 		//add power
 		JButton buttonPower = new JButton("^");
 		buttonPower.setBounds(141, 5, 48, 23);
 		commonButton.add(buttonPower);
 		operatorButtonList.add(buttonPower);
-		
-		
+		rpnButtonList.add(buttonPower);
 		
 		//add sign toggle
 		JButton buttonSignToggle = new JButton("±");
@@ -214,6 +225,7 @@ public class Calculator extends JFrame {
 		});
 		btnCe.setBounds(15, 5, 48, 23);
 		commonButton.add(btnCe);
+		
 		
 		
 		//add panel of classic
@@ -257,13 +269,32 @@ public class Calculator extends JFrame {
 		JButton btnEnter = new JButton("ENTER");
 		btnEnter.setBounds(7, 86, 73, 73);
 		rpn.add(btnEnter);
+		btnEnter.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				rpnCal.getRes(textField.getText());
+				textField.setText("0");
+			}
+		});
+		
+		
 		
 		//add Swap to the RPN panel
 		JButton btnSwap = new JButton("SWAP");
 		btnSwap.setBounds(7, 10, 73, 66);
 		rpn.setLayout(null);
 		rpn.add(btnSwap);
-		
+		btnSwap.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				textField.setText(rpnCal.swap(textField.getText()));
+				
+			}
+		});
 		
 		
 		
@@ -291,7 +322,7 @@ public class Calculator extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				rpn.setVisible(true);
 				classic.setVisible(false);
-				
+				setRpnEnvironment();
 			}
 		});
 		group.add(rpnRadioButton);
@@ -351,7 +382,31 @@ public class Calculator extends JFrame {
 			clearListeners(button);
 			button.addActionListener(addTextListner);
 		}
+		
+		
 	}
+	
+	private void setRpnEnvironment(){
+		for (JButton button : numberButtonList) {
+			clearListeners(button);
+			button.addActionListener(addTextListner);
+		}
+		
+		for (JButton button : rpnButtonList){
+			clearListeners(button);
+			button.addActionListener(rpnButtonListner);
+		}
+		
+		
+	}
+	
+class RpnListenerClass implements ActionListener{
+	
+	public void actionPerformed(ActionEvent e){
+		String oldStr = e.getActionCommand();
+		textField.setText(rpnCal.getRes(oldStr));
+	}
+}
 
 class OperationKey {
 	

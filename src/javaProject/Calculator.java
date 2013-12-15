@@ -34,13 +34,6 @@ public class Calculator extends JFrame {
 	
 	public Calculator() {
 		
-		/*addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowDeactivated(WindowEvent e) {
-				
-			}
-		});*/
-		
 		numberButtonList = new LinkedList<JButton>();
 		operatorButtonList = new LinkedList<JButton>();
 		

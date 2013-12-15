@@ -8,7 +8,7 @@ public class TestCalculator {
 		// TODO Auto-generated method stub
 		
 		
-		CalculatorExpression frame = new CalculatorExpression();
+		Calculator frame = new Calculator();
 		frame.setVisible(true);
 		
 		

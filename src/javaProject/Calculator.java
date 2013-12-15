@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+@SuppressWarnings("serial")
 public class Calculator extends JFrame {
 
 	private JPanel contentPanel;
@@ -300,9 +301,9 @@ public class Calculator extends JFrame {
 		
 		
 		ButtonGroup group = new ButtonGroup();
-		
 		//add radio button classic to the display panel
 		JRadioButton classicRadioButton = new JRadioButton("Classic");
+		classicRadioButton.setSelected(true);
 		classicRadioButton.setBounds(259, 3, 79, 20);
 		displayPanel.add(classicRadioButton);
 		classicRadioButton.addActionListener(new ActionListener() {

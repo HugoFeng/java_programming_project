@@ -19,8 +19,19 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+/**
+ * @author Huiyu Yang
+ * @version 1.0
+ * CalculatorExpression 
+ * 
+ * 		
+ * 		
+ * 		
+ *
+ */
+
 @SuppressWarnings("serial")
-public class Calculator extends JFrame {
+public class CalculatorExpression extends JFrame {
 
 	private JPanel contentPanel;
 	private JPanel rpn;
@@ -37,7 +48,7 @@ public class Calculator extends JFrame {
 	private ClassicOpButtonListenerClass opButtonListner;
 	private RpnListenerClass rpnButtonListner;
 	
-	public Calculator() {
+	public CalculatorExpression() {
 		
 		numberButtonList = new LinkedList<JButton>();
 		operatorButtonList = new LinkedList<JButton>();
@@ -179,14 +190,14 @@ public class Calculator extends JFrame {
 		rpnButtonList.add(buttonMinus);
 		
 		//add multiply
-		JButton buttonMultiply = new JButton("*");
+		JButton buttonMultiply = new JButton("×");
 		buttonMultiply.setBounds(204, 104, 48, 23);
 		commonButton.add(buttonMultiply);
 		operatorButtonList.add(buttonMultiply);
 		rpnButtonList.add(buttonMultiply);
 		
 		//add divide
-		JButton buttonDivide = new JButton("/");
+		JButton buttonDivide = new JButton("÷");
 		buttonDivide.setBounds(204, 137, 48, 23);
 		commonButton.add(buttonDivide);
 		operatorButtonList.add(buttonDivide);
@@ -206,7 +217,7 @@ public class Calculator extends JFrame {
 		commonButton.add(buttonSignToggle);
 		
 		//add delete
-		JButton btnDel = new JButton("<-");
+		JButton btnDel = new JButton("←");
 		btnDel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String str = textField.getText();
@@ -335,6 +346,8 @@ public class Calculator extends JFrame {
 		advancedRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setAdvancedAlgoEnvironment();
+				rpn.setVisible(false);
+				classic.setVisible(true);
 			}
 		});
 		group.add(advancedRadioButton);

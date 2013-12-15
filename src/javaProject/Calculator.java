@@ -358,6 +358,10 @@ public class Calculator extends JFrame {
 			}
 		});
 		group.add(advancedRadioButton);
+		
+		
+		setClassicAlgoEnvironment();
+		
 	}
 	
 	private void clearListeners(JButton button) {
@@ -374,6 +378,8 @@ public class Calculator extends JFrame {
 			clearListeners(button);
 			button.addActionListener(addTextListner);
 		}
+		textField.setText("0");
+		strCal = new StringCalculator();
 	}
 	
 	private void setAdvancedAlgoEnvironment(){
@@ -404,6 +410,8 @@ public class Calculator extends JFrame {
 			button.addActionListener(addTextListner);
 		}
 		
+		textField.setText("0");
+		strCal = new StringCalculator();
 		
 	}
 	
@@ -418,7 +426,8 @@ public class Calculator extends JFrame {
 			button.addActionListener(rpnButtonListner);
 		}
 		
-		
+		textField.setText("0");
+		rpnCal = new RPNCalculator();
 	}
 	
 class RpnListenerClass implements ActionListener{

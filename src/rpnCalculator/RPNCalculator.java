@@ -1,6 +1,7 @@
 package rpnCalculator;
 
 import java.util.Stack;
+import java.lang.Exception;
 
 public class RPNCalculator {
 // create a stack to store numbers
@@ -12,7 +13,7 @@ public class RPNCalculator {
 
 	
 	
-	public String getRes(String rpn) {
+	public String getRes(String rpn) throws Exception {
        // push numbers to stack
 		if (RPNCalculator.isNum(rpn)) {
 			stack1.push(Double.parseDouble(rpn));
@@ -37,27 +38,25 @@ public class RPNCalculator {
 					break;
 				case '/':
 					if (n1 == 0) {
-						System.out.println("infinite");
+						throw new Exception("Devided by zero!");
 					} else {
 						stack1.push(n2 / n1);
 					}
 					break;
 				case '^':
 					stack1.push(Math.pow(n2, n1));
-					
 				}
-			} 
-			// if the number of the numbers in stack is not enough for operate
-			else {
-				return "not enough numbers for calculating";
+			} else {	// if the number of the numbers in stack is not enough for operate
+				throw new Exception("Not enough arguments!");
 			}
 		}
 		return String.valueOf(stack1.peek());
 	}
 
 
-	public String swap(String rpn){
+	public String swap(String rpn) throws Exception{
 		double temp;
+		if(stack1.empty()) throw new Exception("The argument stack is empty!");
 		temp = stack1.pop();
 		stack1.push(Double.parseDouble(rpn));
 		return String.valueOf(temp);

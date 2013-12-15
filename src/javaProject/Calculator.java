@@ -275,8 +275,13 @@ public class Calculator extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				rpnCal.getRes(textField.getText());
-				textField.setText("0");
+				try {
+					rpnCal.getRes(textField.getText());
+					textField.setText("0");
+				} catch (Exception exception) {
+					JOptionPane.showMessageDialog(null, exception.getMessage());
+					textField.setText("0");
+				}
 			}
 		});
 		
@@ -292,8 +297,13 @@ public class Calculator extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				textField.setText(rpnCal.swap(textField.getText()));
-				
+				try {
+					textField.setText(rpnCal.swap(textField.getText()));
+				} catch (Exception exception) {
+					JOptionPane.showMessageDialog(null, exception.getMessage());
+					textField.setText("0");
+				}
+
 			}
 		});
 		
@@ -405,7 +415,12 @@ class RpnListenerClass implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		String oldStr = e.getActionCommand();
-		textField.setText(rpnCal.getRes(oldStr));
+		try {
+			textField.setText(rpnCal.getRes(oldStr));
+		} catch (Exception exception) {
+			JOptionPane.showMessageDialog(null, exception.getMessage());
+			textField.setText("0");
+		}
 	}
 }
 

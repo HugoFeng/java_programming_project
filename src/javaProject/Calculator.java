@@ -68,7 +68,7 @@ public class Calculator extends JFrame {
 		
 		//add a display panel to the content panel
 		JPanel displayPanel = new JPanel();
-		displayPanel.setBounds(10, 10, 344, 73);
+		displayPanel.setBounds(10, 10, 364, 73);
 		contentPanel.add(displayPanel);
 		displayPanel.setLayout(null);
 		
@@ -208,7 +208,7 @@ public class Calculator extends JFrame {
 		rpnButtonList.add(buttonPower);
 		
 		//add sign toggle
-		JButton buttonSignToggle = new JButton("Â±");
+		JButton buttonSignToggle = new JButton("±");
 		buttonSignToggle.addActionListener(new SignToggleListener());
 		buttonSignToggle.setBounds(204, 5, 48, 23);
 		commonButton.add(buttonSignToggle);
@@ -348,7 +348,7 @@ public class Calculator extends JFrame {
 		
 		
 		JRadioButton advancedRadioButton = new JRadioButton("Advanced");
-		advancedRadioButton.setBounds(259, 26, 83, 20);
+		advancedRadioButton.setBounds(259, 26, 105, 20);
 		displayPanel.add(advancedRadioButton);
 		advancedRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

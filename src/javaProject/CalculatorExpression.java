@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 /**
  * @author Huiyu Yang
  * @version 1.0
- * CalculatorExpression 
+ * CalculatorExpression is a class 
  * 
  * 		
  * 		

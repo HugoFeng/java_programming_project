@@ -22,8 +22,8 @@ import javax.swing.JOptionPane;
 /**
  * @author Huiyu Yang
  * @version 1.0
- * CalculatorExpression is a class 
- * 
+ * CalculatorExpression is a class using RPN, classic and 
+ * 		advanced algorithms to 
  * 		
  * 		
  * 		
